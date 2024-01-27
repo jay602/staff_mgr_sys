@@ -1,6 +1,6 @@
 ﻿#include "clerkwidget.h"
 #include "ui_clerkwidget.h"
-//#include "dbghelp.h"
+#include "sqlserver.h"
 
 ClerkWidget::ClerkWidget(QWidget *parent) :
     QWidget(parent),
@@ -17,5 +17,5 @@ ClerkWidget::~ClerkWidget()
 void ClerkWidget::SetUserId(int user_id)
 {
     m_iUserId = user_id;
- //   DBHelperInstance::GetRef().QueryClerkInfoByUserId(user_id, m_clerk);
+    SqlServerInstance::GetRef().queryClerkInfoByUserId(user_id, m_clerk);
 }

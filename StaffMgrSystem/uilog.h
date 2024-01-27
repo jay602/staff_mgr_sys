@@ -14,7 +14,7 @@ public:
     explicit UiLog(QString path, QString logName, QString version);
     ~UiLog();
 
-    int WriteLog(QtMsgType msgType, const QString& msg);
+    int WriteLog(QtMsgType msgType, const char* msg);
 
 private:
     QString MakeMutiDir(const QString path);

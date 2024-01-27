@@ -2,6 +2,7 @@
 #include "ui_logindialog.h"
 #include "log.h"
 #include "globle.h"
+#include "sqlserver.h"
 
 #include <QMessageBox>
 
@@ -11,8 +12,12 @@ LoginDialog::LoginDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     setWindowTitle(tr("职工信息管理系统"));
+    ui->label->setFixedWidth(80);
+    ui->label_2->setFixedWidth(80);
     ui->lineEditPwd->setEchoMode(QLineEdit::Password);
     setFixedSize(400, 300);
+
+    SqlServerInstance::GetRef().initSql();
 }
 
 LoginDialog::~LoginDialog()
@@ -29,53 +34,18 @@ void LoginDialog::on_pushButtonLogin_clicked()
         QMessageBox::information(this, "警告", "用户名或密码不能为空");
         return;
    }
-   LOG_DEBUG <<"用户名："<<username<<", 密码:"<<password;
-   QSqlDatabase db;
-   if(QSqlDatabase::contains("qt_sql_default_connection"))
-   {
-        db = QSqlDatabase::database("qt_sql_default_connection");
-   }
-   else
-   {
-        db = QSqlDatabase::addDatabase("QMYSQL");
-   }
+    LOG_DEBUG <<"用户名："<<username<<", 密码:"<<password;
 
-   db.setHostName("localhost");
-   db.setDatabaseName("staffmgr");
-   db.setUserName(sqluser);
-   db.setPassword(sqlpass);
-    if (!db.open())
+    bool T1 = SqlServerInstance::GetRef().loginUser(username, password);
+
+    if(T1 == false)
     {
-        LOG_DEBUG << "Failed to connect to root mysql admin";
-        return;
+        QMessageBox::information(this, "警告", "用户名或密码错误");
     }
-
-    QSqlQuery query(db);
-    query.exec("select id, username,password, is_admin from user");
-    bool T1=false;
-    while(query.next())
+    else
     {
-       int user_id = query.value(0).toInt();
-       QString user = query.value(1).toString();
-       QString pass = query.value(2).toString();
-       bool is_admin = query.value(3).toBool();
-       qDebug() << user << pass ;
-       if(username.compare(user) == 0 &&
-          password.compare(pass) == 0)
-        {
-               password_qj = password;
-               username_qj = username;
-               g_is_admin = is_admin;
-               g_user_id = user_id;
-               T1 = true;
-               accept();
-        }
+        accept();
     }
-
-     if(T1 == false)
-     {
-         QMessageBox::information(this, "警告", "用户名或密码错误");
-     }
 }
 
 

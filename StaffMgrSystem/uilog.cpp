@@ -1,4 +1,4 @@
-#include "uilog.h"
+﻿#include "uilog.h"
 
 #include <QDir>
 #include <QDateTime>
@@ -32,12 +32,12 @@ UiLog::~UiLog()
 }
 
 
-int UiLog::WriteLog(QtMsgType msgType, const QString& msg)
+int UiLog::WriteLog(QtMsgType msgType, const char* msg)
 {
     m_mutex.lock();
     m_stream << QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss.zzz ");
-   // m_stream << QString::fromLocal8Bit(msg) << '\n';
-    m_stream << msg << '\n';
+    m_stream << QString::fromLocal8Bit(msg) << '\n';
+ //   m_stream << msg << '\n';
     m_stream.flush();
     m_mutex.unlock();
 

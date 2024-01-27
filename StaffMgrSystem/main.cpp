@@ -12,7 +12,7 @@ static UiLog g_log("../log/", "log.txt", "0.0.1");
 
 void messageOutput(QtMsgType msgType, const QMessageLogContext &context, const QString &msg)
 {
-    g_log.WriteLog(msgType, msg);
+    g_log.WriteLog(msgType, msg.toStdString().c_str());
 }
 
 
@@ -30,11 +30,11 @@ int main(int argc, char *argv[])
     {
         if(g_is_admin)
         {
-
             w.show();
         }
         else
         {
+            cw.SetUserId(g_user_id);
             cw.show();
         }
 
