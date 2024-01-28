@@ -36,7 +36,6 @@ bool SqlServer::initSql()
 //注册输入信息
 bool SqlServer::registerUser(QString name,QString password,QString role)
 {
-    query =  new QSqlQuery;
     QString str = QString("insert into Manager(Maccount,Mpassword,Mrole) values('%1','%2','%3')").arg(name).arg(password).arg(role);
     if(!query->exec(str))
         return false;
@@ -68,7 +67,6 @@ bool SqlServer::loginUser(QString name,QString password)
 
 bool SqlServer::insertStock(QString name,QString category,QString count,QString addr,QString manu,QString note)
 {
-    query=new QSqlQuery;
     QString str = QString("insert into Stock values('%1', '%2', '%3','%4','%5','%6')").arg(name).arg(category).arg(count).arg(addr).arg(manu).arg(note);
     if(!query->exec(str))
         return false;
@@ -114,5 +112,104 @@ bool SqlServer::queryClerkInfoByUserId(int userID, Clerk &clerk)
     }
 
     LOG_DEBUG << "<queryClerkInfoByUserId> query clerk failed: user_id =" << userID;
+    return false;
+}
+
+bool SqlServer::queryAllDeparment(QStringList &departments)
+{
+    if (!db.open())
+    {
+        LOG_DEBUG << "<queryAllDeparment> Failed to connect to root mysql admin";
+        return false;
+    }
+
+    if(!query)
+        return false;
+
+    query->exec("select name from department");
+    while(query->next())
+    {
+        QString name = query->value(0).toString();
+        departments << name;
+    }
+
+    LOG_DEBUG << "<queryAllDeparment> deparments=" << departments;
+
+    return departments.size() > 0;
+}
+
+bool SqlServer::updateClerkInfo(Clerk &clerk)
+{
+    if (!db.open())
+    {
+        LOG_DEBUG << "<updateClerkInfo> Failed to connect to root mysql admin";
+        return false;
+    }
+
+    if(!query)
+        return false;
+
+
+    m_model->setTable("clerk");
+    m_model->setFilter("user_id = " + QString::number(clerk.user_id));
+    m_model->select();
+    LOG_DEBUG << "<updateClerkInfo> rowCount = " << m_model->rowCount();
+    if(m_model->rowCount() == 1)
+    {
+        QSqlRecord record = m_model->record(0);
+        record.setValue('name', clerk.name);
+        record.setValue('sex', clerk.sex);
+        record.setValue('phone_number', clerk.phone_number);
+        record.setValue('id_card', clerk.id_card);
+        record.setValue('address', clerk.address);
+        record.setValue('position', clerk.position);
+        record.setValue('department_id', clerk.department_id);
+        record.setValue('hire_date', clerk.hire_date);
+        m_model->setRecord(0, record);
+        m_model->database().transaction();
+        if(m_model->submitAll())
+        {
+            LOG_DEBUG << "<updateClerkInfo> submitAll success, clerk id=" << clerk.user_id << "," << clerk.name << clerk.address;
+            if(m_model->database().commit())
+            {
+                LOG_DEBUG << "<updateClerkInfo> commit success";
+                return true;
+            }
+            m_model->database().rollback();
+            LOG_DEBUG << "<updateClerkInfo> commit error:" << m_model->lastError().text();
+            return false;
+        }
+        else
+        {
+             LOG_DEBUG << "<updateClerkInfo> submitAll failed, clerk id=" << clerk.user_id << "," << clerk.name;
+             LOG_DEBUG << "<updateClerkInfo> error:" << m_model->lastError().text();
+             return false;
+        }
+    }
+
+
+}
+
+bool SqlServer::updateClerkInfo2(Clerk &clerk)
+{
+    if (!db.open())
+    {
+        LOG_DEBUG << "<updateClerkInfo> Failed to connect to root mysql admin";
+        return false;
+    }
+
+    if(!query)
+        return false;
+
+    QString hire_date = clerk.hire_date.toString("yyyy-MM-dd");
+    QString updateSql = QString("update clerk set name='%1',sex='%2',phone_number='%3',id_card='%4',address='%5',position='%6',department_id='%7',hire_date='%8' where user_id='%9'")
+         .arg(clerk.name).arg(clerk.sex).arg(clerk.phone_number).arg(clerk.id_card).arg(clerk.address)
+         .arg(clerk.position).arg(clerk.department_id).arg(hire_date).arg(clerk.user_id);
+     LOG_DEBUG << "sql:" << updateSql;
+     if(query->exec(updateSql))
+            return true;
+
+    LOG_DEBUG << "<updateClerkInfo2> update failed: " << clerk.user_id << "," << clerk.name;
+    LOG_WARNING << "<updateClerkInfo2> error: "<< db.lastError().text();
     return false;
 }

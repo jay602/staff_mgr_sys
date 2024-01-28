@@ -6,15 +6,182 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>542</width>
-    <height>300</height>
+    <width>513</width>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,5">
+     <item>
+      <widget class="QWidget" name="widget" native="true">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 0);</string>
+       </property>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>20</y>
+          <width>80</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>个人信息</string>
+        </property>
+       </widget>
+      </widget>
+     </item>
+     <item>
+      <widget class="QStackedWidget" name="stackedWidget">
+       <widget class="QWidget" name="page">
+        <widget class="QWidget" name="">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>10</y>
+           <width>381</width>
+           <height>401</height>
+          </rect>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="labelName">
+            <property name="text">
+             <string>姓名：</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lineEditName"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="labelSex">
+            <property name="text">
+             <string>性别：</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="comboBoxSex"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="labelPhone">
+            <property name="text">
+             <string>手机号码：</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="lineEditPhone"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="labelIdCard">
+            <property name="text">
+             <string>身份证号：</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="lineEditIdCard"/>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="labelAddr">
+            <property name="text">
+             <string>家庭住址：</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="lineEditAddr"/>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="labelPosition">
+            <property name="text">
+             <string>职位：</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="lineEditPosition"/>
+          </item>
+          <item row="6" column="0">
+           <widget class="QLabel" name="labelDepartment">
+            <property name="text">
+             <string>部门:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="1">
+           <widget class="QComboBox" name="comboBoxDepartment"/>
+          </item>
+          <item row="7" column="0">
+           <widget class="QLabel" name="labelHireDate">
+            <property name="text">
+             <string>入职时间：</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1">
+           <widget class="QDateEdit" name="dateEditHireDate"/>
+          </item>
+          <item row="8" column="0">
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="8" column="1">
+           <widget class="QPushButton" name="pushButtonEdit">
+            <property name="text">
+             <string>编辑</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="page_2"/>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
       <number>10</number>
@@ -40,47 +207,17 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="labelUserId">
        <property name="text">
         <string>111</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButtonExit">
        <property name="text">
         <string>退出</string>
        </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,5">
-     <item>
-      <widget class="QWidget" name="widget" native="true">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(255, 255, 0);</string>
-       </property>
-       <widget class="QPushButton" name="pushButton_2">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>20</y>
-          <width>80</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>个人信息</string>
-        </property>
-       </widget>
-      </widget>
-     </item>
-     <item>
-      <widget class="QStackedWidget" name="stackedWidget">
-       <widget class="QWidget" name="page"/>
-       <widget class="QWidget" name="page_2"/>
       </widget>
      </item>
     </layout>

@@ -17,10 +17,16 @@ public:
     ~ClerkWidget();
     void SetUserId(int user_id);
 
+private slots:
+    void on_pushButtonExit_clicked();
+
+    void on_pushButtonEdit_clicked();
+
 private:
     Ui::ClerkWidget *ui;
     Clerk m_clerk;
     int m_iUserId;
+    bool m_isEdited = false;
 };
 
 #endif // CLERKWIDGET_H
