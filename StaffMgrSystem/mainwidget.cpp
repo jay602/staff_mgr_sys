@@ -12,6 +12,7 @@ MainWidget::MainWidget(QWidget *parent) :
     ui->widget->setFixedWidth(250);
     this->setMinimumSize(1550, 800);
     initClerkTableview();
+    initAttendanceTableview();
 }
 
 MainWidget::~MainWidget()
@@ -31,7 +32,27 @@ void MainWidget::initClerkTableview()
     m_pClerkQuery->select();
 
    //设置模型
-   ui->tableViewClerk->setModel(m_pClerkQuery);
+    ui->tableViewClerk->setModel(m_pClerkQuery);
+}
+
+void MainWidget::initAttendanceTableview()
+{
+    ui->tableViewAttendance->resizeRowsToContents();
+    ui->tableViewAttendance->verticalHeader()->setHidden(true);
+    ui->tableViewAttendance->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    ui->tableViewAttendance->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    m_pAttenceQuery = new AttendanceSqlQueryModel(this);
+    m_pAttenceQuery->select();
+
+   //设置模型
+    ui->tableViewAttendance->setModel(m_pAttenceQuery);
+}
+
+void MainWidget::initSalaryTableview()
+{
+
 }
 
 void MainWidget::on_pushButtonAdd_clicked()
@@ -47,5 +68,23 @@ void MainWidget::on_pushButtonAdd_clicked()
 
         }
     }
+}
+
+
+void MainWidget::on_pushButtonClerk_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+void MainWidget::on_pushButtonAttendance_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(1);
+}
+
+
+void MainWidget::on_pushButtonSalary_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(2);
 }
 

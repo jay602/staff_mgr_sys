@@ -24,11 +24,13 @@ public:
     bool queryClerkInfoByUserId(int userID, Clerk& clerk);
     bool queryAllDeparment(QStringList& departments);
     bool updateClerkInfo(Clerk& clerk);
+    bool addClerkInfo(Clerk& clerk);
     bool updateClerkInfo2(Clerk& clerk);
     bool queryAllDeparment(QMap<int, QString>& departmentMap);
     bool addUser(QString userName, QString pwd, int& id);
     bool isExistUserName(QString userName);
-
+    bool GetAttendanceName(int type, QString& name);
+    bool GetClerkName(int id, QString& name);
 private:
     QSqlQuery *query = nullptr;
     QSqlDatabase db;

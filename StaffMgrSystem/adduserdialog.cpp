@@ -45,8 +45,8 @@ void AddUserDialog::on_pushButtonCommit_clicked()
               return;
         return;
     }
-    int id = 0;
-    bool ret = SqlServerInstance::GetRef().addUser(user_name, pwd, id);
+
+    bool ret = SqlServerInstance::GetRef().addUser(user_name, pwd, id_);
     if(ret)
     {
         QMessageBox::information(this, tr("用户信息"), tr("添加成功"));

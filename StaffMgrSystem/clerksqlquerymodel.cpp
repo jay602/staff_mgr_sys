@@ -14,7 +14,6 @@ QVariant ClerkSqlQueryModel::data(const QModelIndex &index, int role) const
     {
         value = ((value.toInt()==1)?"男":"女");
         return value;
-
     }
 
     if(role==Qt::DisplayRole &&index.column()==7)

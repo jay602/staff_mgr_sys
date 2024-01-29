@@ -14,7 +14,7 @@ class AddUserDialog : public QDialog
 public:
     explicit AddUserDialog(QWidget *parent = nullptr);
     ~AddUserDialog();
-    int GetUserId() { return id; }
+    int GetUserId() { return id_; }
 
 private slots:
     void on_pushButtonCommit_clicked();
@@ -23,7 +23,7 @@ private slots:
 
 private:
     Ui::AddUserDialog *ui;
-    int id;
+    int id_;
 };
 
 #endif // ADDUSERDIALOG_H

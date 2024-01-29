@@ -81,7 +81,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="pushButtonSalary">
           <property name="text">
            <string>工资管理</string>
           </property>
@@ -153,7 +153,71 @@
             </item>
            </layout>
           </widget>
-          <widget class="QWidget" name="page_2"/>
+          <widget class="QWidget" name="page_2">
+           <widget class="QTableView" name="tableViewAttendance">
+            <property name="geometry">
+             <rect>
+              <x>11</x>
+              <y>39</y>
+              <width>500</width>
+              <height>192</height>
+             </rect>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>500</width>
+              <height>100</height>
+             </size>
+            </property>
+           </widget>
+           <widget class="QWidget" name="">
+            <property name="geometry">
+             <rect>
+              <x>11</x>
+              <y>11</y>
+              <width>300</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <spacer name="horizontalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="BtnAddAttendance">
+               <property name="text">
+                <string>添加</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="BtnDeleteAttendance">
+               <property name="text">
+                <string>删除</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="BtnModidyAttendance">
+               <property name="text">
+                <string>修改</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </widget>
+          <widget class="QWidget" name="page_3"/>
          </widget>
         </item>
        </layout>

@@ -14,6 +14,7 @@ DESTDIR = ./bin
 SOURCES += \
     addclerkdialog.cpp \
     adduserdialog.cpp \
+    attendancesqlquerymodel.cpp \
     clerk.cpp \
     clerksqlquerymodel.cpp \
     clerkwidget.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
 HEADERS += \
     addclerkdialog.h \
     adduserdialog.h \
+    attendancesqlquerymodel.h \
     clerk.h \
     clerksqlquerymodel.h \
     clerkwidget.h \
