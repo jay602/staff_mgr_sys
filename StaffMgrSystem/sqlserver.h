@@ -25,6 +25,8 @@ public:
     bool queryAllDeparment(QStringList& departments);
     bool updateClerkInfo(Clerk& clerk);
     bool updateClerkInfo2(Clerk& clerk);
+    bool queryAllDeparment(QMap<int, QString>& departmentMap);
+
 private:
     QSqlQuery *query = nullptr;
     QSqlDatabase db;

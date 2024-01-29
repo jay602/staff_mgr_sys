@@ -13,6 +13,7 @@ DESTDIR = ./bin
 
 SOURCES += \
     clerk.cpp \
+    clerksqlquerymodel.cpp \
     clerkwidget.cpp \
     globle.cpp \
     logindialog.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
 
 HEADERS += \
     clerk.h \
+    clerksqlquerymodel.h \
     clerkwidget.h \
     globle.h \
     log.h \

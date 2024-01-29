@@ -1,7 +1,9 @@
-#ifndef MAINWIDGET_H
+﻿#ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
 #include <QWidget>
+#include <QSqlQueryModel>
+#include "clerksqlquerymodel.h"
 
 namespace Ui {
 class MainWidget;
@@ -15,8 +17,11 @@ public:
     explicit MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
 
+     void initClerkTableview();
+
 private:
     Ui::MainWidget *ui;
+    ClerkSqlQueryModel* m_pClerkQuery;
 };
 
 #endif // MAINWIDGET_H

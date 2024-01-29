@@ -213,3 +213,28 @@ bool SqlServer::updateClerkInfo2(Clerk &clerk)
     LOG_WARNING << "<updateClerkInfo2> error: "<< db.lastError().text();
     return false;
 }
+
+bool SqlServer::queryAllDeparment(QMap<int, QString>& departmentMap)
+{
+    if (!db.open())
+    {
+        LOG_DEBUG << "<queryAllDeparment> Failed to connect to root mysql admin";
+        return false;
+    }
+
+    if(!query)
+        return false;
+
+    query->exec("select id, name from department");
+    departmentMap.clear();
+    while(query->next())
+    {
+        int id = query->value(0).toInt();
+        QString name = query->value(1).toString();
+        departmentMap[id] = name;
+    }
+
+
+    return departmentMap.size() > 0;
+}
+
