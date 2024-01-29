@@ -44,6 +44,7 @@ void LoginDialog::on_pushButtonLogin_clicked()
     }
     else
     {
+        SqlServerInstance::GetRef().isExistUserName(username);
         accept();
     }
 }

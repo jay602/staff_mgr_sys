@@ -19,6 +19,9 @@ public:
 
      void initClerkTableview();
 
+private slots:
+     void on_pushButtonAdd_clicked();
+
 private:
     Ui::MainWidget *ui;
     ClerkSqlQueryModel* m_pClerkQuery;

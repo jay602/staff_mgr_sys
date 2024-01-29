@@ -238,3 +238,58 @@ bool SqlServer::queryAllDeparment(QMap<int, QString>& departmentMap)
     return departmentMap.size() > 0;
 }
 
+bool SqlServer::addUser(QString userName, QString pwd, int& id)
+{
+    if (!db.open())
+    {
+        LOG_DEBUG << "<addUser> Failed to connect to root mysql admin";
+        return false;
+    }
+
+    if(!query)
+        return false;
+
+    ;
+    QString sql = QString("INSERT INTO `user` (`username`, `password`, `is_admin`) VALUES ('%1', '%2', 0)").arg(userName).arg(pwd);
+    LOG_DEBUG << "sql : " << sql;
+    if(!query->exec(sql))
+    {
+        LOG_CRITICAL << "<addUser> excec sql error: " << query->lastError();
+        return false;
+    }
+
+    if(query->exec("SELECT LAST_INSERT_ID()"))
+    {
+        query->next();
+        id = query->value(0).toInt();
+        LOG_DEBUG << "<addUser> id = " << id;
+
+    }
+
+    return true;
+}
+
+bool SqlServer::isExistUserName(QString userName)
+{
+    if (!db.open())
+    {
+        LOG_DEBUG << "<isExistUserName> Failed to connect to root mysql admin";
+        return false;
+    }
+
+    if(!query)
+        return false;
+
+    QString sql = QString("select * from user where username='%1'").arg(userName);
+    LOG_DEBUG << "sql :" << sql;
+    if(!query->exec(sql))
+    {
+        LOG_CRITICAL << "<isExistUserName> excec sql error: " << query->lastError();
+        return false;
+    }
+
+    LOG_DEBUG << "<isExistUserName> query.size = " << query->size();
+
+    return query->size() > 0;
+}
+

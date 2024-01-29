@@ -1,6 +1,7 @@
 ﻿#include "clerkwidget.h"
 #include "ui_clerkwidget.h"
 #include "sqlserver.h"
+#include "log.h"
 
 ClerkWidget::ClerkWidget(QWidget *parent) :
     QWidget(parent),
@@ -46,7 +47,9 @@ void ClerkWidget::SetUserId(int user_id)
         ui->lineEditPhone->setText(m_clerk.phone_number);
         ui->lineEditPosition->setText(m_clerk.position);
         ui->lineEditIdCard->setText(m_clerk.id_card);
+
         ui->comboBoxSex->setCurrentIndex(m_clerk.sex);
+        LOG_DEBUG << "sex = " <<m_clerk.sex;
         ui->comboBoxDepartment->setCurrentIndex(m_clerk.department_id);
         ui->dateEditHireDate->setDate(m_clerk.hire_date);
     }

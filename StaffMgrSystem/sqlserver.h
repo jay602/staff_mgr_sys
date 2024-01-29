@@ -26,6 +26,8 @@ public:
     bool updateClerkInfo(Clerk& clerk);
     bool updateClerkInfo2(Clerk& clerk);
     bool queryAllDeparment(QMap<int, QString>& departmentMap);
+    bool addUser(QString userName, QString pwd, int& id);
+    bool isExistUserName(QString userName);
 
 private:
     QSqlQuery *query = nullptr;

@@ -12,6 +12,8 @@ DESTDIR = ./bin
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addclerkdialog.cpp \
+    adduserdialog.cpp \
     clerk.cpp \
     clerksqlquerymodel.cpp \
     clerkwidget.cpp \
@@ -24,6 +26,8 @@ SOURCES += \
     uilog.cpp
 
 HEADERS += \
+    addclerkdialog.h \
+    adduserdialog.h \
     clerk.h \
     clerksqlquerymodel.h \
     clerkwidget.h \
@@ -37,6 +41,8 @@ HEADERS += \
     uilog.h
 
 FORMS += \
+    addclerkdialog.ui \
+    adduserdialog.ui \
     clerkwidget.ui \
     logindialog.ui \
     mainwidget.ui \
