@@ -57,9 +57,11 @@ void MainWidget::initAttendanceTableview()
 
 void MainWidget::initSalaryTableview()
 {
+     ui->tableViewSalary->setFixedWidth(1400);
     ui->tableViewSalary->resizeRowsToContents();
-    ui->tableViewSalary->setFixedWidth(1300);
+
     ui->tableViewSalary->resizeColumnsToContents();
+
     ui->tableViewSalary->verticalHeader()->setHidden(true);
     ui->tableViewSalary->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableViewSalary->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -81,7 +83,7 @@ void MainWidget::on_pushButtonAdd_clicked()
         dialog2.setUserId(id);
         if(dialog2.exec() == QDialog::Accepted)
         {
-
+            m_pClerkQuery->select();
         }
     }
 }
@@ -110,7 +112,7 @@ void MainWidget::on_BtnAddAttendance_clicked()
     AttendanceDialog dialog;
     if(dialog.exec() == QDialog::Accepted)
     {
-
+        m_pAttenceQuery->select();
     }
 }
 
@@ -129,7 +131,11 @@ void MainWidget::on_BtnModidyAttendance_clicked()
 
 void MainWidget::on_BtnAddSalary_clicked()
 {
-
+    SalaryDialog dialog;
+    if(dialog.exec() == QDialog::Accepted)
+    {
+        m_pAttenceQuery->select();
+    }
 }
 
 

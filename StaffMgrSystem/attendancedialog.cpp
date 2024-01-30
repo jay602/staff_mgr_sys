@@ -15,6 +15,13 @@ AttendanceDialog::AttendanceDialog(QWidget *parent) :
     {
         ui->comboBoxClerkId->addItems(idList);
         connect(ui->comboBoxClerkId, SIGNAL(currentIndexChanged(QString)), this, SLOT(on_comboBox_currentIndexChanged2(QString)));
+        QString strClerkId = ui->comboBoxClerkId->currentText();
+        int id = strClerkId.toInt();
+        QString name;
+        if(SqlServerInstance::GetRef().GetClerkName(id, name))
+        {
+            ui->lineEditClerkName->setText(name);
+        }
     }
 
     QMap<int, QString> attenceMap;

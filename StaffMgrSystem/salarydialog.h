@@ -22,6 +22,8 @@ private slots:
 
     void on_pushButtonCancel_clicked();
 
+    void on_comboBox_currentIndexChanged(const QString &arg1);
+
 private:
     Ui::SalaryDialog *ui;
     int m_type =  1;  // 1--add 2--delete  3-modify

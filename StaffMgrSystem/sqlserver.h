@@ -37,6 +37,8 @@ public:
     bool GetAttendanceNameMap(QMap<int, QString>& AttendanceMap);
     bool AddAttendance(StAttendance& data);
 
+    bool AddSalary(StSalary& data);
+
 private:
     QSqlQuery *query = nullptr;
     QSqlDatabase db;

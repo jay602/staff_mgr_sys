@@ -438,11 +438,33 @@ bool SqlServer::AddAttendance(StAttendance &data)
     if(!query)
         return false;
 
-    QString sql = QString("INSERT INTO `attendance` (`status`, `attendance_date`, `clerk_id`) VALUES ('%d', '%2', %3);").arg(data.status).arg(data.date).arg(data.clerk_id);
+    QString sql = QString("INSERT INTO `attendance` (`status`, `attendance_date`, `clerk_id`) VALUES ('%1', '%2', %3);").arg(data.status).arg(data.date).arg(data.clerk_id);
     LOG_DEBUG << "sql :" << sql;
     if(!query->exec(sql))
     {
         LOG_CRITICAL << "<AddAttendance> excec sql error: " << query->lastError();
+        return false;
+    }
+    return true;
+}
+
+bool SqlServer::AddSalary(StSalary &data)
+{
+    if (!db.open())
+    {
+        LOG_DEBUG << "<AddSalary> Failed to connect to root mysql admin";
+        return false;
+    }
+
+    if(!query)
+        return false;
+
+    QString sql = QString("INSERT INTO `salary` (`clerk_id`, `year`, `month`, `basic_pay`, `butie_pay`, `kouchu_pay`, `yingfa_pay`, `shifa_pay`) VALUES ('%1', '%2', '%3', '%4', '%5', '%6', '%7', '%8');")
+            .arg(data.clerk_id).arg(data.year).arg(data.month).arg(data.basic_pay).arg(data.butie_pay).arg(data.kouchu_pay).arg(data.yingfa_pay).arg(data.shifa_pay);
+    LOG_DEBUG << "sql :" << sql;
+    if(!query->exec(sql))
+    {
+        LOG_CRITICAL << "<AddSalary> excec sql error: " << query->lastError();
         return false;
     }
     return true;
