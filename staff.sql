@@ -90,6 +90,8 @@ CREATE TABLE `salary` (
   PRIMARY KEY (clerk_id, year, month)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='工资表';
 
+INSERT INTO `salary` (`clerk_id`, `year`, `month`, `basic_pay`, `butie_pay`, `kouchu_pay`, `yingfa_pay`, `shifa_pay`) VALUES (2, 2023, 12, 10000, 2000, 0, 12000, 12000);
+
 
 
 

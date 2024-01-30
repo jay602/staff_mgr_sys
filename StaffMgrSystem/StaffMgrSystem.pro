@@ -14,6 +14,7 @@ DESTDIR = ./bin
 SOURCES += \
     addclerkdialog.cpp \
     adduserdialog.cpp \
+    attendancedialog.cpp \
     attendancesqlquerymodel.cpp \
     clerk.cpp \
     clerksqlquerymodel.cpp \
@@ -23,12 +24,16 @@ SOURCES += \
     main.cpp \
     mainwidget.cpp \
     mainwindow.cpp \
+    salarydialog.cpp \
+    salarysqlquerymodel.cpp \
     sqlserver.cpp \
     uilog.cpp
 
 HEADERS += \
+    StData.h \
     addclerkdialog.h \
     adduserdialog.h \
+    attendancedialog.h \
     attendancesqlquerymodel.h \
     clerk.h \
     clerksqlquerymodel.h \
@@ -38,6 +43,8 @@ HEADERS += \
     logindialog.h \
     mainwidget.h \
     mainwindow.h \
+    salarydialog.h \
+    salarysqlquerymodel.h \
     singleton.hpp \
     sqlserver.h \
     uilog.h
@@ -45,10 +52,12 @@ HEADERS += \
 FORMS += \
     addclerkdialog.ui \
     adduserdialog.ui \
+    attendancedialog.ui \
     clerkwidget.ui \
     logindialog.ui \
     mainwidget.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    salarydialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

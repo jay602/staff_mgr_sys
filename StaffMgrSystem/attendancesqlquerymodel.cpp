@@ -33,6 +33,14 @@ QVariant AttendanceSqlQueryModel::data(const QModelIndex &index, int role) const
 
         return value;
     }
+
+    if(role == Qt::TextAlignmentRole)
+     {
+         value = Qt::AlignCenter;   //文本居中
+         return value;
+     }
+
+    return value;
 }
 
 void AttendanceSqlQueryModel::select()

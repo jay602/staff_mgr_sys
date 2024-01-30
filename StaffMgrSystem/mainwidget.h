@@ -5,6 +5,7 @@
 #include <QSqlQueryModel>
 #include "clerksqlquerymodel.h"
 #include "attendancesqlquerymodel.h"
+#include "salarysqlquerymodel.h"
 
 namespace Ui {
 class MainWidget;
@@ -31,10 +32,23 @@ private slots:
 
      void on_pushButtonSalary_clicked();
 
+     void on_BtnAddAttendance_clicked();
+
+     void on_BtnDeleteAttendance_clicked();
+
+     void on_BtnModidyAttendance_clicked();
+
+     void on_BtnAddSalary_clicked();
+
+     void on_BtnDeleteSalary_clicked();
+
+     void on_BtnModifySalary_clicked();
+
 private:
     Ui::MainWidget *ui;
     ClerkSqlQueryModel* m_pClerkQuery;
     AttendanceSqlQueryModel* m_pAttenceQuery;
+    SalarySqlQueryModel* m_pSalaryModel;
 };
 
 #endif // MAINWIDGET_H

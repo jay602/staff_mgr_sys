@@ -339,7 +339,7 @@ bool SqlServer::GetAttendanceName(int type, QString& name)
 
     query->next();
     name = query->value(0).toString();
-    LOG_DEBUG << "<addUser> attendance_name = " << name;
+    LOG_DEBUG << "<GetAttendanceName> attendance_name = " << name;
     return true;
 }
 
@@ -365,6 +365,86 @@ bool SqlServer::GetClerkName(int id, QString &name)
     query->next();
     name = query->value(0).toString();
     LOG_DEBUG << "<GetClerkName> clerk_name = " << name;
+    return true;
+}
+
+bool SqlServer::GetClerkIdList(QStringList& idList)
+{
+    if (!db.open())
+    {
+        LOG_DEBUG << "<GetClerkIdList> Failed to connect to root mysql admin";
+        return false;
+    }
+
+    if(!query)
+        return false;
+
+    QString sql = QString("select id from clerk");
+    LOG_DEBUG << "sql :" << sql;
+    if(!query->exec(sql))
+    {
+        LOG_CRITICAL << "<GetClerkIdList> excec sql error: " << query->lastError();
+        return false;
+    }
+
+    while(query->next())
+    {
+        idList << query->value(0).toString();
+    }
+
+    LOG_DEBUG << "<GetClerkIdList> idList = " << idList;
+    return true;
+}
+
+bool SqlServer::GetAttendanceNameMap(QMap<int, QString> &AttendanceMap)
+{
+    if (!db.open())
+    {
+        LOG_DEBUG << "<GetAttendanceNameMap> Failed to connect to root mysql admin";
+        return false;
+    }
+
+    if(!query)
+        return false;
+
+    QString sql = QString("select id, name from attendance_name");
+    LOG_DEBUG << "sql :" << sql;
+    if(!query->exec(sql))
+    {
+        LOG_CRITICAL << "<GetAttendanceNameMap> excec sql error: " << query->lastError();
+        return false;
+    }
+
+    AttendanceMap.clear();
+    while(query->next())
+    {
+        int id =  query->value(0).toInt();
+        QString name =  query->value(1).toString();
+        AttendanceMap[id] = name;
+    }
+
+    LOG_DEBUG << "<GetAttendanceNameMap> AttendanceMap = " << AttendanceMap;
+    return AttendanceMap.size() > 0;
+}
+
+bool SqlServer::AddAttendance(StAttendance &data)
+{
+    if (!db.open())
+    {
+        LOG_DEBUG << "<AddAttendance> Failed to connect to root mysql admin";
+        return false;
+    }
+
+    if(!query)
+        return false;
+
+    QString sql = QString("INSERT INTO `attendance` (`status`, `attendance_date`, `clerk_id`) VALUES ('%d', '%2', %3);").arg(data.status).arg(data.date).arg(data.clerk_id);
+    LOG_DEBUG << "sql :" << sql;
+    if(!query->exec(sql))
+    {
+        LOG_CRITICAL << "<AddAttendance> excec sql error: " << query->lastError();
+        return false;
+    }
     return true;
 }
 

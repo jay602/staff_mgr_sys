@@ -32,6 +32,13 @@ QVariant ClerkSqlQueryModel::data(const QModelIndex &index, int role) const
 
         return value;
     }
+
+    if(role == Qt::TextAlignmentRole)
+     {
+         value = Qt::AlignCenter;   //文本居中
+         return value;
+     }
+
     return value;
 }
 

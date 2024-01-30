@@ -12,6 +12,7 @@
 #include <QSqlTableModel>
 #include "singleton.hpp"
 #include "clerk.h"
+#include "StData.h"
 
 class SqlServer
 {
@@ -29,8 +30,13 @@ public:
     bool queryAllDeparment(QMap<int, QString>& departmentMap);
     bool addUser(QString userName, QString pwd, int& id);
     bool isExistUserName(QString userName);
+
     bool GetAttendanceName(int type, QString& name);
     bool GetClerkName(int id, QString& name);
+    bool GetClerkIdList(QStringList& idList);
+    bool GetAttendanceNameMap(QMap<int, QString>& AttendanceMap);
+    bool AddAttendance(StAttendance& data);
+
 private:
     QSqlQuery *query = nullptr;
     QSqlDatabase db;

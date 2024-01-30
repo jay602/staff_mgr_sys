@@ -2,6 +2,8 @@
 #include "ui_mainwidget.h"
 #include "addclerkdialog.h"
 #include "adduserdialog.h"
+#include "attendancedialog.h"
+#include "salarydialog.h"
 
 MainWidget::MainWidget(QWidget *parent) :
     QWidget(parent),
@@ -13,6 +15,7 @@ MainWidget::MainWidget(QWidget *parent) :
     this->setMinimumSize(1550, 800);
     initClerkTableview();
     initAttendanceTableview();
+    initSalaryTableview();
 }
 
 MainWidget::~MainWidget()
@@ -23,6 +26,7 @@ MainWidget::~MainWidget()
 void MainWidget::initClerkTableview()
 {
     ui->tableViewClerk->resizeRowsToContents();
+    ui->tableViewClerk->resizeColumnsToContents();
     ui->tableViewClerk->verticalHeader()->setHidden(true);
     ui->tableViewClerk->setSelectionBehavior(QAbstractItemView::SelectRows);
 
@@ -38,6 +42,7 @@ void MainWidget::initClerkTableview()
 void MainWidget::initAttendanceTableview()
 {
     ui->tableViewAttendance->resizeRowsToContents();
+    ui->tableViewAttendance->resizeColumnsToContents();
     ui->tableViewAttendance->verticalHeader()->setHidden(true);
     ui->tableViewAttendance->setSelectionBehavior(QAbstractItemView::SelectRows);
 
@@ -52,7 +57,18 @@ void MainWidget::initAttendanceTableview()
 
 void MainWidget::initSalaryTableview()
 {
+    ui->tableViewSalary->resizeRowsToContents();
+    ui->tableViewSalary->setFixedWidth(1300);
+    ui->tableViewSalary->resizeColumnsToContents();
+    ui->tableViewSalary->verticalHeader()->setHidden(true);
+    ui->tableViewSalary->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableViewSalary->setSelectionMode(QAbstractItemView::SingleSelection);
 
+    m_pSalaryModel = new SalarySqlQueryModel(this);
+    m_pSalaryModel->select();
+
+   //设置模型
+    ui->tableViewSalary->setModel(m_pSalaryModel);
 }
 
 void MainWidget::on_pushButtonAdd_clicked()
@@ -86,5 +102,45 @@ void MainWidget::on_pushButtonAttendance_clicked()
 void MainWidget::on_pushButtonSalary_clicked()
 {
      ui->stackedWidget->setCurrentIndex(2);
+}
+
+
+void MainWidget::on_BtnAddAttendance_clicked()
+{
+    AttendanceDialog dialog;
+    if(dialog.exec() == QDialog::Accepted)
+    {
+
+    }
+}
+
+
+void MainWidget::on_BtnDeleteAttendance_clicked()
+{
+
+}
+
+
+void MainWidget::on_BtnModidyAttendance_clicked()
+{
+
+}
+
+
+void MainWidget::on_BtnAddSalary_clicked()
+{
+
+}
+
+
+void MainWidget::on_BtnDeleteSalary_clicked()
+{
+
+}
+
+
+void MainWidget::on_BtnModifySalary_clicked()
+{
+
 }
 
