@@ -2,6 +2,7 @@
 #define SALARYDIALOG_H
 
 #include <QDialog>
+#include "StData.h"
 
 namespace Ui {
 class SalaryDialog;
@@ -16,6 +17,7 @@ public:
     ~SalaryDialog();
 
     void setType(int type);
+    void setSalary(StSalary& data);
 
 private slots:
     void on_pushButtonCommit_clicked();

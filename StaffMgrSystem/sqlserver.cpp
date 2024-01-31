@@ -470,3 +470,45 @@ bool SqlServer::AddSalary(StSalary &data)
     return true;
 }
 
+bool SqlServer::GetAllSalary(QList<StSalary> &data)
+{
+    if (!db.open())
+    {
+        LOG_DEBUG << "<GetAllSalary> Failed to connect to root mysql admin";
+        return false;
+    }
+
+    if(!query)
+        return false;
+
+    QString sql = "select clerk_id, year, month, basic_pay, butie_pay, kouchu_pay, yingfa_pay, shifa_pay from salary";
+    LOG_DEBUG << "sql :" << sql;
+    if(!query->exec(sql))
+    {
+        LOG_CRITICAL << "<GetAllSalary> excec sql error: " << query->lastError();
+        return false;
+    }
+
+    data.clear();
+    while(query->next())
+    {
+        StSalary salary;
+        salary.clerk_id =  query->value(0).toInt();
+        salary.year =  query->value(1).toInt();
+        salary.basic_pay =  query->value(2).toInt();
+        salary.butie_pay =  query->value(3).toInt();
+        salary.kouchu_pay =  query->value(4).toInt();
+        salary.yingfa_pay =  query->value(5).toInt();
+        salary.shifa_pay =  query->value(6).toInt();
+        QString name;
+        if(GetClerkName(salary.clerk_id, name))
+        {
+            salary.clerk_name = name;
+        }
+
+        data.push_back(salary);
+    }
+
+    return data.size() > 0;
+}
+

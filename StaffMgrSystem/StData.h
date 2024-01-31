@@ -12,6 +12,7 @@ typedef struct StAttendance
 
 typedef struct StSalary
 {
+    QString clerk_name;
     int clerk_id;
     int year;
     int month;

@@ -4,6 +4,9 @@
 #include "adduserdialog.h"
 #include "attendancedialog.h"
 #include "salarydialog.h"
+#include "log.h"
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 MainWidget::MainWidget(QWidget *parent) :
     QWidget(parent),
@@ -12,7 +15,7 @@ MainWidget::MainWidget(QWidget *parent) :
     ui->setupUi(this);
     setWindowTitle("职工信息管理");
     ui->widget->setFixedWidth(250);
-    this->setMinimumSize(1550, 800);
+    this->setMinimumSize(1600, 800);
     initClerkTableview();
     initAttendanceTableview();
     initSalaryTableview();
@@ -57,10 +60,11 @@ void MainWidget::initAttendanceTableview()
 
 void MainWidget::initSalaryTableview()
 {
-     ui->tableViewSalary->setFixedWidth(1400);
+   // QHBoxLayout *layout = new QHBoxLayout();
+    ui->tableViewSalary->horizontalHeader()->sectionResizeMode(QHeaderView::Stretch);
     ui->tableViewSalary->resizeRowsToContents();
 
-    ui->tableViewSalary->resizeColumnsToContents();
+    //ui->tableViewSalary->resizeColumnsToContents();
 
     ui->tableViewSalary->verticalHeader()->setHidden(true);
     ui->tableViewSalary->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -71,6 +75,10 @@ void MainWidget::initSalaryTableview()
 
    //设置模型
     ui->tableViewSalary->setModel(m_pSalaryModel);
+   // layout->addLayout(ui->verticalLayout_3);
+   // ui->page_3->setLayout(layout);
+    ui->tableViewSalary->setFixedWidth(1400);
+    LOG_DEBUG << "tableViewSalary.width = " << ui->tableViewSalary->width();
 }
 
 void MainWidget::on_pushButtonAdd_clicked()
@@ -141,7 +149,15 @@ void MainWidget::on_BtnAddSalary_clicked()
 
 void MainWidget::on_BtnDeleteSalary_clicked()
 {
-
+   QModelIndexList rows =  ui->tableViewSalary->selectionModel()->selectedRows();
+   if(!rows.empty())
+   {
+       int curRow = rows.at(0).row();
+       int clerkId = m_pSalaryModel->index(curRow, 0).data().toInt();
+       int year = m_pSalaryModel->index(curRow, 1).data().toInt();
+       int month = m_pSalaryModel->index(curRow, 2).data().toInt();
+       LOG_DEBUG << "clerid=" << clerkId << ", year=" << year << ", month=" << month;
+   }
 }
 
 

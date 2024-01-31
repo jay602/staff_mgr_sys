@@ -38,6 +38,7 @@ public:
     bool AddAttendance(StAttendance& data);
 
     bool AddSalary(StSalary& data);
+    bool GetAllSalary(QList<StSalary>& data);
 
 private:
     QSqlQuery *query = nullptr;

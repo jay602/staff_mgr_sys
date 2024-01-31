@@ -4,7 +4,6 @@
 #include "sqlserver.h"
 #include "log.h"
 #include <QMessageBox>
-#include "StData.h"
 
 
 
@@ -50,6 +49,11 @@ void SalaryDialog::setType(int type)
     {
          setWindowTitle("修改员工的工资信息");
     }
+}
+
+void SalaryDialog::setSalary(StSalary& data)
+{
+
 }
 
 void SalaryDialog::on_pushButtonCommit_clicked()
