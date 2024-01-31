@@ -7,6 +7,7 @@
 #include "log.h"
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QMessageBox>
 
 MainWidget::MainWidget(QWidget *parent) :
     QWidget(parent),
@@ -78,7 +79,6 @@ void MainWidget::initSalaryTableview()
    // layout->addLayout(ui->verticalLayout_3);
    // ui->page_3->setLayout(layout);
     ui->tableViewSalary->setFixedWidth(1400);
-    LOG_DEBUG << "tableViewSalary.width = " << ui->tableViewSalary->width();
 }
 
 void MainWidget::on_pushButtonAdd_clicked()
@@ -142,21 +142,41 @@ void MainWidget::on_BtnAddSalary_clicked()
     SalaryDialog dialog;
     if(dialog.exec() == QDialog::Accepted)
     {
-        m_pAttenceQuery->select();
+         refreshSalary();
     }
 }
 
 
 void MainWidget::on_BtnDeleteSalary_clicked()
 {
-   QModelIndexList rows =  ui->tableViewSalary->selectionModel()->selectedRows();
-   if(!rows.empty())
+   QModelIndex index = ui->tableViewSalary->currentIndex();
+
+   if(index.isValid())
    {
-       int curRow = rows.at(0).row();
-       int clerkId = m_pSalaryModel->index(curRow, 0).data().toInt();
-       int year = m_pSalaryModel->index(curRow, 1).data().toInt();
-       int month = m_pSalaryModel->index(curRow, 2).data().toInt();
-       LOG_DEBUG << "clerid=" << clerkId << ", year=" << year << ", month=" << month;
+       int curRow = index.row();
+       StSalary salary;
+       salary.clerk_id = m_pSalaryModel->index(curRow, 0).data().toInt();
+       salary.clerk_name = m_pSalaryModel->index(curRow, 1).data().toString();
+       salary.year = m_pSalaryModel->index(curRow, 2).data().toInt();
+       salary.month = m_pSalaryModel->index(curRow, 3).data().toInt();
+       salary.basic_pay = m_pSalaryModel->index(curRow, 4).data().toInt();
+       salary.butie_pay = m_pSalaryModel->index(curRow, 5).data().toInt();
+       salary.kouchu_pay = m_pSalaryModel->index(curRow, 6).data().toInt();
+       salary.yingfa_pay = m_pSalaryModel->index(curRow, 7).data().toInt();
+       salary.shifa_pay = m_pSalaryModel->index(curRow, 8).data().toInt();
+
+       SalaryDialog dialog;
+       dialog.setType(2);
+       dialog.setSalary(salary);
+       if(dialog.exec() == QDialog::Accepted)
+       {
+           initSalaryTableview();
+       }
+   }
+   else
+   {
+       LOG_DEBUG << "<on_BtnDeleteSalary_clicked> index is not valid";
+       QMessageBox::information(this, "警告", "请选择要删除的数据");
    }
 }
 
@@ -164,5 +184,11 @@ void MainWidget::on_BtnDeleteSalary_clicked()
 void MainWidget::on_BtnModifySalary_clicked()
 {
 
+}
+
+void MainWidget::refreshSalary()
+{
+    m_pSalaryModel->select();
+    ui->tableViewSalary->setModel(m_pSalaryModel);
 }
 

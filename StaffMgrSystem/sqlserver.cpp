@@ -490,25 +490,42 @@ bool SqlServer::GetAllSalary(QList<StSalary> &data)
     }
 
     data.clear();
+    LOG_DEBUG << "<GetAllSalary> record count = " << query->record().count();
     while(query->next())
     {
         StSalary salary;
         salary.clerk_id =  query->value(0).toInt();
         salary.year =  query->value(1).toInt();
-        salary.basic_pay =  query->value(2).toInt();
-        salary.butie_pay =  query->value(3).toInt();
-        salary.kouchu_pay =  query->value(4).toInt();
-        salary.yingfa_pay =  query->value(5).toInt();
-        salary.shifa_pay =  query->value(6).toInt();
-        QString name;
-        if(GetClerkName(salary.clerk_id, name))
-        {
-            salary.clerk_name = name;
-        }
-
+        salary.month = query->value(2).toInt();
+        salary.basic_pay =  query->value(3).toInt();
+        salary.butie_pay =  query->value(4).toInt();
+        salary.kouchu_pay =  query->value(5).toInt();
+        salary.yingfa_pay =  query->value(6).toInt();
+        salary.shifa_pay =  query->value(7).toInt();
+//        QString name;
+//        if(GetClerkName(salary.clerk_id, name))
+//        {
+//            salary.clerk_name = name;
+//        }
+        LOG_DEBUG << "<GetAllSalary> salary clerk_id=" <<  salary.clerk_id << ", year=" << salary.year << ", month=" << salary.month;
         data.push_back(salary);
     }
 
+    for(auto iter = data.begin(); iter != data.end(); iter++)
+    {
+        int clerkId = iter->clerk_id;
+        QString name;
+        if(GetClerkName(clerkId, name))
+        {
+            iter->clerk_name = name;
+        }
+    }
+
+//    foreach(StSalary item, data)
+//    {
+//        LOG_DEBUG << "<GetAllSalary> name = " << item.clerk_name;
+//    }
+    LOG_DEBUG << "<GetAllSalary> size = " << data.size();
     return data.size() > 0;
 }
 

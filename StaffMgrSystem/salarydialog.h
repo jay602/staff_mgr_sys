@@ -27,6 +27,10 @@ private slots:
     void on_comboBox_currentIndexChanged(const QString &arg1);
 
 private:
+    bool addSalary();
+    bool deleteSalary();
+
+private:
     Ui::SalaryDialog *ui;
     int m_type =  1;  // 1--add 2--delete  3-modify
 };

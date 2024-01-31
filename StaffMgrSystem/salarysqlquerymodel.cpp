@@ -34,19 +34,9 @@ SalarySqlQueryModel::SalarySqlQueryModel(QObject *parent) : QStandardItemModel(p
 
 void SalarySqlQueryModel::select()
 {
-//    setQuery("select clerk_id, year, month, basic_pay, butie_pay, kouchu_pay, yingfa_pay, shifa_pay from salary");
-
-//    setHeaderData(0,Qt::Horizontal,"员工");
-//    setHeaderData(1,Qt::Horizontal,"年份");
-//    setHeaderData(2,Qt::Horizontal,"月份");
-//    setHeaderData(3,Qt::Horizontal,"基本工资");
-//    setHeaderData(4,Qt::Horizontal,"补贴工资");
-//    setHeaderData(5,Qt::Horizontal,"扣除工资");
-//    setHeaderData(6,Qt::Horizontal,"应发工资");
-//    setHeaderData(7,Qt::Horizontal,"实发工资");
     clear();
     QStringList headerList;
-    headerList << "ID" << "姓名" << "年份" << "月份" << "基本工资" << "补贴工资" << "扣除工资" << "应发工资" << "实发工资";
+    headerList << "员工ID" << "员工姓名" << "年份" << "月份" << "基本工资" << "补贴工资" << "扣除工资" << "应发工资" << "实发工资";
     setHorizontalHeaderLabels(headerList);
     QList<StSalary> salaryList;
     bool ret = SqlServerInstance::GetRef().GetAllSalary(salaryList);

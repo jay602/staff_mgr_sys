@@ -45,6 +45,9 @@ private slots:
      void on_BtnModifySalary_clicked();
 
 private:
+     void refreshSalary();
+
+private:
     Ui::MainWidget *ui;
     ClerkSqlQueryModel* m_pClerkQuery;
     AttendanceSqlQueryModel* m_pAttenceQuery;
